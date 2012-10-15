@@ -1,0 +1,100 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\newcommand\independent{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newtheorem{factors}{Theorem}
+\begin{document}
+
+Following Yassin-Kassab's 1998 paper and with the three node diagram shown in 
+the yEd file.
+
+\begin{equation}
+\sum_{i\in I_j} NP_{ij}q_{ij} = q_{j0}\quad \forall j \in J
+\end{equation}
+
+where $I_j$ is the set of source nodes supplying node $j$ and $J$ is
+the set of all demand nodes in the network, and $q_{j0}$ is the
+outflow at node $j$.
+
+\begin{equation}
+\sum_{i \in I_j} NP_{ij}q_{0i}p_{ij} = q_{j0}\quad \forall j \in J
+\end{equation}
+
+where $q_{01}$ is the inflow at node $i$ and $p_{ij}$ is the probability
+that a flow at node $i$ reaches node $j$.
+
+
+
+
+\begin{equation}
+\frac{p_{ij}}{p_{kj}} = \frac{\alpha_i}{\alpha_k}\quad \forall i,k \in I_j; \forall j \in J
+\end{equation}
+
+Substituting this equation back into 2, we arrive at the following equation
+
+\begin{equation}
+p_{ij} = \frac{q_{j0}\alpha_i}{\sum_{i\in I_j} NP_{ij}q_{0i}\alpha_i}\quad \forall i,k \in I_j; \forall j \in J
+\end{equation}
+
+where we set $\alpha_1$ = 1.
+
+Now we also have the condition that
+
+\begin{equation}
+\sum_{j\in J_i} NP_{ij}p_{ij} = 1\quad \forall i \in I
+\end{equation}
+
+I indexes the set of source nodes.
+
+Subsituting the path flow probabilities into this equation we get a
+set of equations which we can solve.
+
+Taken our simple subway example
+
+\begin{align}
+\frac{20}{20 + 10\alpha_3} + \frac{10}{20 + 10\alpha_2} &= 1 \\
+\frac{10\alpha_2}{10\alpha_2 + 10\alpha_3} + \frac{10\alpha_2}{20 + 10\alpha_2} &= 1 \\
+\frac{10\alpha_3}{10\alpha_2 + 10\alpha_3} + \frac{20\alpha_3}{20 + 10\alpha_3} &= 1
+\end{align}
+
+When we solve for this system, we have 
+$\alpha_2=1.3146$ and $\alpha_3=0.864$ so that 
+
+\begin{align}
+p_{1,9} &= \frac{20}{20 + 10\cdot 0.864} &= 0.698\\
+p_{1,10} &= \frac{10}{20 + 10\cdot 1.3146} &= 0.301\\
+p_{2,8} &= \frac{10\cdot 1.3146}{10\cdot 0.864 + 10\cdot 1.3146} &= 0.604\\
+p_{2,10} &= \frac{10\cdot 1.3146}{20 + 10\cdot 1.3146} &= 0.396 \\
+p_{3,8} &= \frac{10\cdot 0.864}{10\cdot 0.864 + 10\cdot 1.3146} &= 0.396 \\
+p_{3,9} &= \frac{20\cdot 0.864}{20 + 10\cdot 0.864} &= 0.604 
+\end{align}
+
+So that we have the flow paths
+\begin{align}
+q_{1,9} &= 13.96 \\
+q_{1,10} &= 6.04 \\
+q_{2,8} &= 6.04 \\
+q_{2,10} &= 3.96 \\
+q_{3,8} & = 3.96 \\
+q_{3,9} & = 6.04
+\end{align}
+
+So that the track segments have this flow
+
+\begin{align}
+t_{1,4} &= 20 \\
+t_{4,5} &= 6.04 \\
+t_{2,5} &= 3.96 \\
+t_{5,10} &= 10 \\
+t_{3,6} &= 10 \\
+t_{6,7} &= 3.96 \\
+t_{2,7} &= 6.04 \\
+t_{7,8} &= 10 \\
+t_{4,9} &= 13.96 \\
+t_{6,9} &= 6.04
+\end{align}
+
+\end{document}
